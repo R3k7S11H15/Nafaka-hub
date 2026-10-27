@@ -25,6 +25,7 @@ import OrderTrackingScreen from '../pages/OrderTrackingScreen'
 import ReceiptScreen from '../pages/ReceiptScreen'
 import WishlistScreen from '../pages/WishlistScreen'
 import NotificationsScreen from '../pages/NotificationsScreen'
+import PaymentMethodsScreen from '../pages/PaymentMethodsScreen'
 import MarketPricesScreen from '../pages/MarketPricesScreen'
 import ProfileScreen from '../pages/ProfileScreen'
 import SettingsScreen from '../pages/SettingsScreen'
@@ -248,6 +249,7 @@ function MainStack({ userRole }) {
       <Stack.Screen name="Receipt" component={ReceiptScreen} options={{ title: 'Receipt', headerBackTitle: 'Orders' }} />
       <Stack.Screen name="Wishlist" component={WishlistScreen} options={{ title: 'My Wishlist', headerBackTitle: 'Profile' }} />
       <Stack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications', headerBackTitle: 'Profile' }} />
+      <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} options={{ title: 'Payment Methods', headerBackTitle: 'Profile' }} />
       <Stack.Screen name="ChatThread" component={ChatThreadScreen} options={{ title: 'Chat', headerBackTitle: 'Messages' }} />
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings', headerBackTitle: 'Profile' }} />
       <Stack.Screen name="AdminLogistics" component={AdminLogisticsScreen} options={{ title: 'Logistics Applications', headerBackTitle: 'Profile' }} />
