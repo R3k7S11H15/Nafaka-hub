@@ -1,6 +1,8 @@
 import storage from '../utils/storage';
 
-const isWeb = typeof window !== 'undefined';
+// React Native sets global.window = global for compatibility, so checking typeof window
+// alone is not reliable. Use document detection instead, as RN's global doesn't have document.
+const isWeb = typeof document !== 'undefined' && typeof window !== 'undefined' && window.location;
 let API_BASE;
 let _tokenCache = null;
 
@@ -29,7 +31,7 @@ if (isWeb) {
 }
 
 function getBaseUrl() {
-  if (typeof window !== 'undefined' && window.location && window.location.origin) {
+  if (typeof document !== 'undefined' && typeof window !== 'undefined' && window.location && window.location.origin) {
     return window.location.origin + '/api';
   }
   return API_BASE;

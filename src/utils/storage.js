@@ -3,7 +3,7 @@ let _storage = null
 function initStorage() {
   if (_storage) return _storage
 
-  if (typeof window !== 'undefined' && window.localStorage) {
+  if (typeof document !== 'undefined' && typeof window !== 'undefined' && window.localStorage) {
     _storage = {
       getItem: (key) => window.localStorage.getItem(key),
       setItem: (key, value) => window.localStorage.setItem(key, value),
