@@ -54,7 +54,7 @@ export default function AdminSettingsPage() {
       saveToLocal('sms', sms)
       saveToLocal('maintenance', maintenance)
       await api.updateAdminSettings({ general, payment, email, sms, maintenance })
-    } catch {
+    } catch (e) {
     } finally {
       setSaving(false)
     }
