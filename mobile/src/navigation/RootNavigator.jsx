@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { ActivityIndicator, View, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 import { AuthContext } from '../../../src/context/AuthContext'
 import { CartContext } from '../../../src/context/CartContext'
 import { ROLES } from '../../../src/config/roles'
+import LoadingSpinner from '../components/LoadingSpinner'
 
 import {
   Home, ShoppingCart, MapPin, BarChart3,
@@ -78,46 +79,54 @@ const Colors = {
 function LoadingScreen() {
   return (
     <View style={styles.loadingContainer}>
-      <ActivityIndicator size="large" color={Colors.primary} />
+      <LoadingSpinner text="Loading Nafaka Hub..." size="large" />
     </View>
   )
+}
+
+function getTabBarConfig(IconName, routeName, IconNameMap) {
+  const SelectedIcon = IconNameMap[routeName] || IconName
+  return {
+    tabBarIcon: ({ focused, color, size }) => {
+      const iconSize = focused ? size + 2 : size
+      return <SelectedIcon width={iconSize} height={iconSize} color={color} />
+    },
+    tabBarActiveTintColor: Colors.primary,
+    tabBarInactiveTintColor: Colors.textMuted,
+    tabBarActiveBackgroundColor: 'rgba(21, 128, 61, 0.05)',
+    tabBarStyle: {
+      backgroundColor: Colors.card,
+      borderTopColor: Colors.border,
+      height: 70,
+      paddingBottom: 8,
+      borderTopWidth: 1,
+    },
+    tabBarLabelStyle: {
+      fontSize: 11,
+      fontWeight: '600',
+      marginTop: 2,
+    },
+    headerStyle: { backgroundColor: Colors.primary },
+    headerTintColor: Colors.white,
+    headerTitleStyle: { fontWeight: 'bold' },
+  }
 }
 
 function CustomerTabs() {
   const { cartItems } = useContext(CartContext)
   const cartCount = cartItems.reduce((sum, item) => sum + (item.quantity || 0), 0)
 
+  const iconMap = {
+    Home: Home,
+    Products: Package,
+    MarketPrices: MapPin,
+    Messages: MessageSquare,
+    Profile: User,
+  }
+
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let IconName = ShoppingBag
-          switch (route.name) {
-            case 'Home': IconName = Home; break
-            case 'Products': IconName = Package; break
-            case 'MarketPrices': IconName = MapPin; break
-            case 'Messages': IconName = MessageSquare; break
-            case 'Profile': IconName = User; break
-          }
-          return <IconName width={size} height={size} color={color} />
-        },
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 5,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 2,
-        },
-        headerStyle: { backgroundColor: Colors.primary },
-        headerTintColor: Colors.white,
-        headerTitleStyle: { fontWeight: 'bold' },
-      })}
+      screenOptions={({ route }) => getTabBarConfig(ShoppingBag, route.name, iconMap)}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Products" component={ProductsScreen} />
@@ -129,37 +138,17 @@ function CustomerTabs() {
 }
 
 function LogisticsTabs() {
+  const iconMap = {
+    LogisticsDashboard: ClipboardList,
+    LogisticsAvailable: Package,
+    LogisticsActive: Truck,
+    LogisticsEarnings: DollarSign,
+    LogisticsProfile: User,
+  }
+
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let IconName = Truck
-          switch (route.name) {
-            case 'LogisticsDashboard': IconName = ClipboardList; break
-            case 'LogisticsAvailable': IconName = Package; break
-            case 'LogisticsActive': IconName = Truck; break
-            case 'LogisticsEarnings': IconName = DollarSign; break
-            case 'LogisticsProfile': IconName = User; break
-          }
-          return <IconName width={size} height={size} color={color} />
-        },
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 5,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 2,
-        },
-        headerStyle: { backgroundColor: Colors.primary },
-        headerTintColor: Colors.white,
-        headerTitleStyle: { fontWeight: 'bold' },
-      })}
+      screenOptions={({ route }) => getTabBarConfig(Truck, route.name, iconMap)}
     >
       <Tab.Screen name="LogisticsDashboard" component={LogisticsDashboardScreen} options={{ title: 'Dashboard' }} />
       <Tab.Screen name="LogisticsAvailable" component={LogisticsAvailableDeliveriesScreen} options={{ title: 'Available' }} />
@@ -171,35 +160,15 @@ function LogisticsTabs() {
 }
 
 function DriverTabs() {
+  const iconMap = {
+    DriverDashboard: ClipboardList,
+    DriverDeliveries: Package,
+    DriverProfile: User,
+  }
+
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let IconName = Truck
-          switch (route.name) {
-            case 'DriverDashboard': IconName = ClipboardList; break
-            case 'DriverDeliveries': IconName = Package; break
-            case 'DriverProfile': IconName = User; break
-          }
-          return <IconName width={size} height={size} color={color} />
-        },
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 5,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 2,
-        },
-        headerStyle: { backgroundColor: Colors.primary },
-        headerTintColor: Colors.white,
-        headerTitleStyle: { fontWeight: 'bold' },
-      })}
+      screenOptions={({ route }) => getTabBarConfig(Truck, route.name, iconMap)}
     >
       <Tab.Screen name="DriverDashboard" component={DriverDashboardScreen} options={{ title: 'Dashboard' }} />
       <Tab.Screen name="DriverDeliveries" component={DriverDashboardScreen} options={{ title: 'Deliveries' }} />
@@ -209,37 +178,17 @@ function DriverTabs() {
 }
 
 function WarehouseTabs() {
+  const iconMap = {
+    WarehouseDashboard: BarChart3,
+    WarehouseInventory: Package,
+    WarehouseBookings: Calendar,
+    WarehouseCustomers: Users,
+    WarehouseProfile: User,
+  }
+
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let IconName = Warehouse
-          switch (route.name) {
-            case 'WarehouseDashboard': IconName = BarChart3; break
-            case 'WarehouseInventory': IconName = Package; break
-            case 'WarehouseBookings': IconName = Calendar; break
-            case 'WarehouseCustomers': IconName = Users; break
-            case 'WarehouseProfile': IconName = User; break
-          }
-          return <IconName width={size} height={size} color={color} />
-        },
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 5,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 2,
-        },
-        headerStyle: { backgroundColor: Colors.primary },
-        headerTintColor: Colors.white,
-        headerTitleStyle: { fontWeight: 'bold' },
-      })}
+      screenOptions={({ route }) => getTabBarConfig(Warehouse, route.name, iconMap)}
     >
       <Tab.Screen name="WarehouseDashboard" component={WarehouseDashboardScreen} options={{ title: 'Dashboard' }} />
       <Tab.Screen name="WarehouseInventory" component={WarehouseInventoryScreen} options={{ title: 'Inventory' }} />
@@ -251,37 +200,17 @@ function WarehouseTabs() {
 }
 
 function VendorAdminTabs() {
+  const iconMap = {
+    VendorDashboard: BarChart3,
+    VendorApplications: UserCheck,
+    VendorVerification: Shield,
+    VendorAnalytics: TrendingUp,
+    VendorProfile: User,
+  }
+
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let IconName = Users
-          switch (route.name) {
-            case 'VendorDashboard': IconName = BarChart3; break
-            case 'VendorApplications': IconName = UserCheck; break
-            case 'VendorVerification': IconName = Shield; break
-            case 'VendorAnalytics': IconName = TrendingUp; break
-            case 'VendorProfile': IconName = User; break
-          }
-          return <IconName width={size} height={size} color={color} />
-        },
-        tabBarActiveTintColor: Colors.primary,
-        tabBarInactiveTintColor: Colors.textMuted,
-        tabBarStyle: {
-          backgroundColor: Colors.card,
-          borderTopColor: Colors.border,
-          height: 60,
-          paddingBottom: 5,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          fontWeight: '600',
-          marginTop: 2,
-        },
-        headerStyle: { backgroundColor: Colors.primary },
-        headerTintColor: Colors.white,
-        headerTitleStyle: { fontWeight: 'bold' },
-      })}
+      screenOptions={({ route }) => getTabBarConfig(Users, route.name, iconMap)}
     >
       <Tab.Screen name="VendorDashboard" component={VendorDashboardScreen} options={{ title: 'Dashboard' }} />
       <Tab.Screen name="VendorApplications" component={VendorApplicationsScreen} options={{ title: 'Applications' }} />

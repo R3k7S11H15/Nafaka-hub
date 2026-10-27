@@ -146,7 +146,7 @@ export default function CheckoutScreen({ navigation }) {
         startPolling(payRes.payment_id)
       }
     } catch (err) {
-      Alert.alert('Error', err.message || 'Failed to connect to server')
+      Alert.alert('Error', (err && err.message) || 'Failed to connect to server')
     } finally {
       setProcessing(false)
     }

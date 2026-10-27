@@ -82,6 +82,7 @@ export function Input({
   keyboardType = 'default',
   error,
   style,
+  icon,
   rightIcon: RightIcon,
   onRightIconPress,
 }) {
@@ -89,8 +90,9 @@ export function Input({
     <View style={styles.inputContainer}>
       {label && <Text style={styles.inputLabel}>{label}</Text>}
       <View style={[styles.inputWrapper, error && styles.inputError, style]}>
+        {icon && <View style={styles.inputIcon}>{icon}</View>}
         <TextInput
-          style={styles.input}
+          style={[styles.input, icon ? { paddingLeft: 8 } : null]}
           placeholder={placeholder}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
@@ -162,9 +164,21 @@ const styles = StyleSheet.create({
   inputError: {
     borderColor: '#dc2626',
   },
+  inputIcon: {
+    marginRight: 8,
+  },
   errorText: {
     fontSize: 12,
     color: '#dc2626',
     marginTop: 4,
+  },
+  forgotPassword: {
+    alignSelf: 'flex-end',
+    marginBottom: 16,
+  },
+  forgotPasswordText: {
+    fontSize: 13,
+    color: Colors.primary,
+    fontWeight: '500',
   },
 })

@@ -1,22 +1,16 @@
 import React, { useState, useContext } from 'react'
-import { View, ScrollView, Text, Image, TouchableOpacity, Alert, StyleSheet } from 'react-native'
+import { View, ScrollView, Text, TouchableOpacity, Alert, StyleSheet, Dimensions } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AuthContext } from '../../../src/context/AuthContext'
 import { Button, Input, Colors } from '../components/UI'
-import { Package, Eye, EyeOff } from '../icons'
-import api from '../../../src/services/api'
+import { Package, Eye, EyeOff, Mail, Lock } from '../icons'
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [apiUrl, setApiUrl] = useState('')
   const { login } = useContext(AuthContext)
-
-  React.useEffect(() => {
-    setApiUrl(api.getBaseURL())
-  }, [])
 
   const handleSubmit = async () => {
     if (!email || !password) {
@@ -30,12 +24,8 @@ export default function LoginScreen({ navigation }) {
         Alert.alert('Login Failed', data.message || 'Invalid credentials')
       }
     } catch (err) {
-      const message = (err && err.message) || err?.toString() || 'Network error'
-      let displayMsg = `Base URL: ${apiUrl}\n\nError: ${message}`
-      if (err && err.stack) {
-        displayMsg += `\n\n${err.stack}`
-      }
-      Alert.alert('Login Error', `Failed to connect to server.\n\n${displayMsg}`, [{ text: 'OK' }])
+      const message = (err && err.message) || 'Network error - check your connection'
+      Alert.alert('Login Error', `Failed to connect to server.\n\n${message}`, [{ text: 'OK' }])
     } finally {
       setLoading(false)
     }
@@ -56,31 +46,40 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.heading}>Welcome back</Text>
           <Text style={styles.subheading}>Sign in to your account</Text>
 
-          <Input
-            label="Email address"
-            placeholder="you@example.com"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
+           <Input
+             label="Email address"
+             placeholder="you@example.com"
+             value={email}
+             onChangeText={setEmail}
+             keyboardType="email-address"
+             autoCapitalize="none"
+             icon={<Mail width={20} height={20} color={Colors.textMuted} />}
+           />
 
-          <Input
-            label="Password"
-            placeholder="Enter your password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!showPassword}
-            rightIcon={showPassword ? EyeOff : Eye}
-            onRightIconPress={() => setShowPassword(!showPassword)}
-          />
+           <Input
+             label="Password"
+             placeholder="Enter your password"
+             value={password}
+             onChangeText={setPassword}
+             secureTextEntry={!showPassword}
+             icon={<Lock width={20} height={20} color={Colors.textMuted} />}
+             rightIcon={showPassword ? EyeOff : Eye}
+             onRightIconPress={() => setShowPassword(!showPassword)}
+           />
 
-          <Button
-            title={loading ? 'Signing In...' : 'Sign In'}
-            onPress={handleSubmit}
-            disabled={loading}
-            style={{ marginTop: 8 }}
-          />
+           <TouchableOpacity
+             style={styles.forgotPassword}
+             onPress={() => Alert.alert('Forgot Password', 'Please contact support to reset your password')}
+           >
+             <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+           </TouchableOpacity>
+
+           <Button
+             title={loading ? 'Signing In...' : 'Sign In'}
+             onPress={handleSubmit}
+             disabled={loading}
+             style={{ marginTop: 8 }}
+           />
 
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
@@ -108,9 +107,6 @@ export default function LoginScreen({ navigation }) {
               </Text>
             </Text>
           </View>
-          <Text style={{ fontSize: 10, color: '#666', textAlign: 'center', marginTop: 10, padding: 5, backgroundColor: '#f0f0f0', borderRadius: 4 }}>
-            DEBUG: API_BASE={apiUrl}
-          </Text>
         </View>
         </ScrollView>
     </SafeAreaView>

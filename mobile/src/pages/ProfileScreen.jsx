@@ -6,8 +6,8 @@ import { ROLES, isAdminRole, ADMIN_MENU_CONFIG } from '../../../src/config/roles
 import { Colors } from '../components/UI'
 import {
   Package, Heart, ShoppingBag, MapPin, CreditCard, Bell,
-ChevronRight, Pencil, LogOut, BarChart3, MessageSquare, Users, DollarSign,
-  User, Truck, Warehouse, AlertCircle, Gavel, FileText
+  ChevronRight, Pencil, LogOut, BarChart3, MessageSquare, Users, DollarSign,
+  User, Truck, Warehouse, AlertCircle, Gavel, FileText, Gift
 } from '../icons'
 
 export default function ProfileScreen({ navigation }) {
@@ -72,7 +72,7 @@ export default function ProfileScreen({ navigation }) {
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Profile</Text>
         <TouchableOpacity onPress={() => {}}>
-          <Edit3 width={20} height={20} color={Colors.white} />
+          <Pencil width={20} height={20} color={Colors.white} />
         </TouchableOpacity>
       </View>
 
