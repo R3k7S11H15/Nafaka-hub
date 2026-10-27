@@ -91,15 +91,15 @@ function CustomerTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = ShoppingBag
+          let IconName = ShoppingBag
           switch (route.name) {
-            case 'Home': iconName = Home; break
-            case 'Products': iconName = Package; break
-            case 'MarketPrices': iconName = MapPin; break
-            case 'Messages': iconName = MessageSquare; break
-            case 'Profile': iconName = User; break
+            case 'Home': IconName = Home; break
+            case 'Products': IconName = Package; break
+            case 'MarketPrices': IconName = MapPin; break
+            case 'Messages': IconName = MessageSquare; break
+            case 'Profile': IconName = User; break
           }
-          return <iconName width={size} height={size} color={color} />
+          return <IconName width={size} height={size} color={color} />
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textMuted,
@@ -133,15 +133,15 @@ function LogisticsTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = Truck
+          let IconName = Truck
           switch (route.name) {
-            case 'LogisticsDashboard': iconName = ClipboardList; break
-            case 'LogisticsAvailable': iconName = Package; break
-            case 'LogisticsActive': iconName = Truck; break
-            case 'LogisticsEarnings': iconName = DollarSign; break
-            case 'LogisticsProfile': iconName = User; break
+            case 'LogisticsDashboard': IconName = ClipboardList; break
+            case 'LogisticsAvailable': IconName = Package; break
+            case 'LogisticsActive': IconName = Truck; break
+            case 'LogisticsEarnings': IconName = DollarSign; break
+            case 'LogisticsProfile': IconName = User; break
           }
-          return <iconName width={size} height={size} color={color} />
+          return <IconName width={size} height={size} color={color} />
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textMuted,
@@ -175,13 +175,13 @@ function DriverTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = Truck
+          let IconName = Truck
           switch (route.name) {
-            case 'DriverDashboard': iconName = ClipboardList; break
-            case 'DriverDeliveries': iconName = Package; break
-            case 'DriverProfile': iconName = User; break
+            case 'DriverDashboard': IconName = ClipboardList; break
+            case 'DriverDeliveries': IconName = Package; break
+            case 'DriverProfile': IconName = User; break
           }
-          return <iconName width={size} height={size} color={color} />
+          return <IconName width={size} height={size} color={color} />
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textMuted,
@@ -213,15 +213,15 @@ function WarehouseTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = Warehouse
+          let IconName = Warehouse
           switch (route.name) {
-            case 'WarehouseDashboard': iconName = BarChart3; break
-            case 'WarehouseInventory': iconName = Package; break
-            case 'WarehouseBookings': iconName = Calendar; break
-            case 'WarehouseCustomers': iconName = Users; break
-            case 'WarehouseProfile': iconName = User; break
+            case 'WarehouseDashboard': IconName = BarChart3; break
+            case 'WarehouseInventory': IconName = Package; break
+            case 'WarehouseBookings': IconName = Calendar; break
+            case 'WarehouseCustomers': IconName = Users; break
+            case 'WarehouseProfile': IconName = User; break
           }
-          return <iconName width={size} height={size} color={color} />
+          return <IconName width={size} height={size} color={color} />
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textMuted,
@@ -255,15 +255,15 @@ function VendorAdminTabs() {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName = Users
+          let IconName = Users
           switch (route.name) {
-            case 'VendorDashboard': iconName = BarChart3; break
-            case 'VendorApplications': iconName = UserCheck; break
-            case 'VendorVerification': iconName = Shield; break
-            case 'VendorAnalytics': iconName = TrendingUp; break
-            case 'VendorProfile': iconName = User; break
+            case 'VendorDashboard': IconName = BarChart3; break
+            case 'VendorApplications': IconName = UserCheck; break
+            case 'VendorVerification': IconName = Shield; break
+            case 'VendorAnalytics': IconName = TrendingUp; break
+            case 'VendorProfile': IconName = User; break
           }
-          return <iconName width={size} height={size} color={color} />
+          return <IconName width={size} height={size} color={color} />
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.textMuted,
