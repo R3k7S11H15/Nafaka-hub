@@ -1,0 +1,54 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5173:5173"
+    environment:
+      - NODE_ENV=production
+      - API_BASE_URL=http://localhost:3000/api
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./dist:/app/dist
+
+  backend:
+    build: .
+    command: node backend-node/server.js
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=jumla_rice_trading
+      - JWT_SECRET=${JWT_SECRET}
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./backend-node:/app/backend-node
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=jumla_rice_trading
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./backend-node/database:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mysql_data:
+  redis_data:

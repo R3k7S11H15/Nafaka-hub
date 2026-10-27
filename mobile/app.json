@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Nafaka Hub",
+    "slug": "nafakahub-tanzania",
+    "version": "1.0.0",
+    "description": "Tanzania's leading agricultural marketplace - mobile app",
+    "sdkVersion": "51.0.0",
+    "platforms": ["ios", "android"],
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#15803d"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "entryPoint": "./src/index.js",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "bundleIdentifier": "com.nafakahub.tanzania",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.ios"
+        }
+      },
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
+    },
+    "android": {
+      "package": "com.nafakahub.tanzania",
+      "usesCleartextTraffic": true
+    },
+    "plugins": [],
+    "scheme": "nafakahub",
+    "extra": {
+      "apiBase": "http://192.168.1.101:3001/api"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://app.kilo.ai/config.json",
+  "commands": {
+    "mobile:start": {
+      "description": "Start Expo dev server for mobile app",
+      "command": "cd mobile && expo start"
+    },
+    "mobile:android": {
+      "description": "Build and run Android app",
+      "command": "cd mobile && expo run:android"
+    },
+    "mobile:ios": {
+      "description": "Build and run iOS app",
+      "command": "cd mobile && expo run:ios"
+    },
+    "web:dev": {
+      "description": "Start Vite dev server for web app",
+      "command": "vite"
+    },
+    "backend:start": {
+      "description": "Start Node.js + Express backend server",
+      "command": "cd backend-node && node server.js"
+    }
+  }
+}

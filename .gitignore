@@ -1,0 +1,12 @@
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.local
+.env.*.local
+# nTZS sandbox credentials: real secrets, shown once by POST /testmode/signup.
+.env.sandbox
+*.log
+.DS_Store
+.vitest/
